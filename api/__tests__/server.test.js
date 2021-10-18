@@ -67,6 +67,14 @@ describe("[POST] /api/auth/register [MIDDLEWARE]", () => {
     });
     expect(res.body.message).toBe("user and password are required");
   });
+  it("responds with correct error when invalid phone number provided", async () => {
+    const res = await request(server).post("/api/auth/register").send({
+      username: "jimHalpert",
+      password: "password",
+      phoneNumber: "+14355313213",
+    });
+    expect(res.body.message).toBe("invalid phone number");
+  });
 });
 
 describe("[POST] /api/auth/login", () => {
