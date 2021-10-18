@@ -16,7 +16,11 @@ authRouter.post(
   checkPhoneNumberFree,
   async (req, res, next) => {
     try {
-      const newUser = await Users.insertUser(req.user);
+      const { username, password, phoneNumber } = req.body;
+      const rounds = process.env.BCRYPT_ROUNDS || 8;
+      const hash = bcrypt.hashSync(password, rounds);
+      const user = { username, password: hash, phoneNumber };
+      const newUser = await Users.insertUser(user);
       res.status(201).json(newUser);
     } catch (err) {
       next(err);
@@ -24,22 +28,22 @@ authRouter.post(
   }
 );
 
-// authRouter.post(
-//   "/login",
-//   validateUser,
-//   checkUsernameExists,
-//   (req, res, next) => {
-//     const { password } = req.body;
-//     if (bcrypt.compareSync(password, res.user.password)) {
-//       const token = buildToken(res.user);
-//       res.status(200).json({
-//         message: `welcome, ${res.user.username}`,
-//         token,
-//       });
-//     } else {
-//       next({ status: 401, message: "invalid credentials" });
-//     }
-//   }
-// );
+authRouter.post(
+  "/login",
+  validateUser,
+  checkUsernameExists,
+  (req, res, next) => {
+    const { password } = req.body;
+    if (bcrypt.compareSync(password, res.user.password)) {
+      const token = buildToken(res.user);
+      res.status(200).json({
+        message: `welcome, ${res.user.username}`,
+        token,
+      });
+    } else {
+      next({ status: 401, message: "invalid credentials" });
+    }
+  }
+);
 
 module.exports = authRouter;
