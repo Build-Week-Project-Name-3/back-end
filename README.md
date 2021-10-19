@@ -116,21 +116,12 @@ _What you receive:_
 ```json
 [
     {
-      "plant_id": 1,
+      "plant_id": 0,
       "plant_name": "Aglaonema",
       "plant_species": "Chinese Evergreen",
       "h2oFrequency": 21,
       "image_url": "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
-      "user_id": 1,
-    },
-    {
-      "plant_id": 2,
-      "plant_name": "Maranta leuconeura",
-      "plant_species": "Lemon Lime",
-      "h2oFrequency": 7,
-      "image_url":
-        "https://hometoheather.com/wp-content/uploads/2021/06/lemon-lime-prayer-plant-sm.jpg",
-      "user_id": 1,
+      "user_id": 0,
     },
   ]
 ```
