@@ -54,7 +54,7 @@ const checkUsernameExists = async (req, res, next) => {
 
 const validateUser = async (req, res, next) => {
   const { username, password } = req.body;
-  if (!username || !password) {
+  if (!username || !username.trim() || !password || !password.trim()) {
     next({ status: 400, message: "user and password are required" });
   }
   next();

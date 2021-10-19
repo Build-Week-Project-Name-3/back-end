@@ -223,7 +223,8 @@ describe("[GET] /api/plants/:id", () => {
     // const jokes = await request(server);
     const plants = await request(server)
       .get(`/api/plants/${0}`)
-      .set("Authorization", res.body.token);
+      .set("Authorization", res.body.token)
+      .set("user_id", res.body.user_id);
     expect(plants.status).toBe(200);
   });
   it("rejects user if no token is sent in header", async () => {
@@ -267,7 +268,6 @@ describe("[POST] /api/plants", () => {
       .set("Authorization", res1.body.token)
       .set("user_id", res1.body.user_id)
       .send({
-        plant_id: 2,
         plant_name: "Aglaonema",
         plant_species: "Philippine Evergreen",
         h2oFrequency: 14,
@@ -284,12 +284,73 @@ describe("[POST] /api/plants", () => {
   });
   it("responds with correct data structure ", () => {
     expect(res2.body).toMatchObject({
-      plant_id: 2,
+      plant_id: 1,
       plant_name: "Aglaonema",
       plant_species: "Philippine Evergreen",
       h2oFrequency: 14,
       image_url:
         "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
+      user_id: 1,
+    });
+  });
+});
+
+describe("[PUT] /api/plants/:id", () => {
+  let res1;
+  let res2;
+  beforeEach(async () => {
+    await request(server).post("/api/auth/register").send({
+      username: "johnCena",
+      password: "ucantcme",
+      phoneNumber: "+18985339048",
+    });
+    res1 = await request(server).post("/api/auth/login").send({
+      username: "johnCena",
+      password: "ucantcme",
+    });
+    await request(server)
+      .post("/api/plants")
+      .set("Authorization", res1.body.token)
+      .set("user_id", res1.body.user_id)
+      .send({
+        plant_name: "Aaonema",
+        plant_species: "Phillipine Evergeen",
+        h2oFrequency: 10,
+        image_url:
+          "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
+      });
+    res2 = await request(server)
+      .put(`/api/plants/${1}`)
+      .set("Authorization", res1.body.token)
+      .set("user_id", res1.body.user_id)
+      .send({
+        plant_name: "Aglaonema",
+        plant_species: "Philippine Evergreen",
+        h2oFrequency: 14,
+        image_url: "https://randomlink.com",
+      });
+  });
+  it("responds with 200 OK", async () => {
+    expect(res2.status).toBe(200);
+  });
+  it("updates the plant in the db", async () => {
+    const expected = {
+      plant_id: 1,
+      plant_name: "Aglaonema",
+      plant_species: "Philippine Evergreen",
+      h2oFrequency: 14,
+      image_url: "https://randomlink.com",
+      user_id: 1,
+    };
+    expect(res2.body).toEqual(expected);
+  });
+  it("responds with correct data structure ", () => {
+    expect(res2.body).toMatchObject({
+      plant_id: 1,
+      plant_name: "Aglaonema",
+      plant_species: "Philippine Evergreen",
+      h2oFrequency: 14,
+      image_url: "https://randomlink.com",
       user_id: 1,
     });
   });

@@ -5,7 +5,7 @@ const usersRouter = require("./users/users-router");
 const authRouter = require("./auth/auth-router");
 const plantsRouter = require("./plants/plants-router");
 const { restricted } = require("./auth/auth-middleware");
-
+const { checkUserId } = require("./plants/plants-middleware");
 const server = express();
 server.use(express.json());
 server.use(helmet());
@@ -13,7 +13,7 @@ server.use(cors());
 
 server.use("/api/users", restricted, usersRouter);
 server.use("/api/auth", authRouter);
-server.use("/api/plants", restricted, plantsRouter);
+server.use("/api/plants", restricted, checkUserId, plantsRouter);
 
 // eslint-disable-next-line
 server.use((err, req, res, next) => {

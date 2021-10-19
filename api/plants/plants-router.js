@@ -1,5 +1,6 @@
 const plantsRouter = require("express").Router();
 const Plants = require("./plants-model");
+const { validatePlant } = require("./plants-middleware");
 
 plantsRouter.get("/", async (req, res, next) => {
   try {
@@ -20,7 +21,7 @@ plantsRouter.get("/:id", async (req, res, next) => {
   }
 });
 
-plantsRouter.post("/", async (req, res, next) => {
+plantsRouter.post("/", validatePlant, async (req, res, next) => {
   try {
     const { user_id } = req.headers;
     const newPlant = await Plants.insertPlant({
@@ -28,6 +29,15 @@ plantsRouter.post("/", async (req, res, next) => {
       user_id: user_id,
     });
     res.status(201).json(newPlant);
+  } catch (err) {
+    next(err);
+  }
+});
+
+plantsRouter.put("/:id", validatePlant, async (req, res, next) => {
+  try {
+    const updatedPlant = await Plants.updatePlant(req.body, req.params.id);
+    res.status(200).json(updatedPlant);
   } catch (err) {
     next(err);
   }

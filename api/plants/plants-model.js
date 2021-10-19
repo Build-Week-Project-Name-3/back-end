@@ -24,9 +24,24 @@ async function insertPlant(plant) {
   return newPlantObject;
 }
 
+async function updatePlant(plant, plant_id) {
+  const [newPlantObject] = await db("plants")
+    .update(plant, [
+      "plant_id",
+      "plant_name",
+      "plant_species",
+      "h2oFrequency",
+      "image_url",
+      "user_id",
+    ])
+    .where("plant_id", plant_id);
+  return newPlantObject;
+}
+
 module.exports = {
   getPlants,
   findBy,
   findById,
   insertPlant,
+  updatePlant,
 };
