@@ -214,7 +214,7 @@ _What you receive:_
 
 ```json
 {
-  "plant_id": 3
+  "plant_id": 3,
   "plant_name": "Garden Rose",
   "plant_species": "Ausmas",
   "h2oFrequency": 14,
