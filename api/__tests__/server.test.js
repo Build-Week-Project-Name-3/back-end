@@ -351,7 +351,6 @@ describe("[POST] /api/plants [MIDDLEWARE]", () => {
   it("doesn't create a new plant in the db", async () => {
     const plants = await db("plants");
     expect(plants.length).toBe(1);
-    c;
   });
   it("responds with correct data structure ", () => {
     expect(res2.body.message).toBe("all fields are required");
