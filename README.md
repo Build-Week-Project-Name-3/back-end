@@ -222,6 +222,19 @@ _What you receive:_
   "user_id": 1
 }
 ```
+
+### [DELETE] /api/plants/:plant_id
+
+**_RESTRICTED ENDPOINT_**
+
+- Delete an existing plant (authenticated instructor)
+  - _requires valid token in authorization header to send_
+  - _requires valid user_id in user_id header to send_
+  - _required information:_
+    - _plant_id (integer)_
+
+_Nothing gets returned on successful deletion_
+
 ## Scripts
 
 - **start**: Runs the app in production.
