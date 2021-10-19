@@ -44,6 +44,7 @@ _What you send:_
 }
 ```
 
+
 _What you receive:_
 
 ```json
@@ -56,10 +57,6 @@ _What you receive:_
 
 - Login
   - _username and password required_
-  - _returns the following:_
-    - _message: { "welcome, jimHalpert" }_
-    - _user_id: 1_
-    - _token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzIzMzE4NzksImV4cCI6MTYzMjQxODI3OX0.Ajk-7XyY83eXwbo2mp5Q2_qEUdsfr1XnWy-wGtGX2XE"_
 
 _What you send:_
 
@@ -78,6 +75,126 @@ _What you receive:_
   "user_id": 1,
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzIzMzE4NzksImV4cCI6MTYzMjQxODI3OX0.Ajk-7XyY83eXwbo2mp5Q2_qEUdsfr1XnWy-wGtGX2XE"
 }
+```
+
+
+## <p align="center">USERS</p>
+
+### [GET] /api/users/:id
+
+**_RESTRICTED ENDPOINT_**
+
+- Get profile information for authenticated user
+  - _requires valid token in authorization header to access_
+  - _requires valid user_id in user_id header to access_
+
+_What you receive:_
+
+```json
+{
+    "user_id": 1,
+    "username": "dwightschrute",
+    "password": "$2a$08$Gv6FncpXxzl66M/LvH8u5uxtL0iJlH4y7jH8HD1IEr4KxSGXZt6Q6",
+    "phoneNumber": "+1234567897",
+    "created_at": "2021-10-19T17:44:05.266Z",
+    "updated_at": "2021-10-19T17:44:05.266Z"
+}
+```
+
+## <p align="center">PLANTS</p>
+
+### [GET] /api/plants
+
+**_RESTRICTED ENDPOINT_**
+
+- Get an array of plants for authenticated user
+  - _requires valid token in authorization header to access_
+  - _requires valid user_id in user_id header to access_
+
+_What you receive:_
+
+```json
+[
+    {
+      plant_id: 1,
+      plant_name: "Aglaonema",
+      plant_species: "Chinese Evergreen",
+      h2oFrequency: 21,
+      image_url:
+        "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
+      user_id: 1,
+    },
+    {
+      plant_id: 2,
+      plant_name: "Maranta leuconeura",
+      plant_species: "Lemon Lime",
+      h2oFrequency: 7,
+      image_url:
+        "https://hometoheather.com/wp-content/uploads/2021/06/lemon-lime-prayer-plant-sm.jpg",
+      user_id: 1,
+    },
+  ]
+```
+
+### [GET] /api/plants/:id
+
+**_RESTRICTED ENDPOINT_**
+
+- Get information for a specific plant
+  - _requires valid token in authorization header to access_
+  - _requires valid user_id in user_id header to access_
+
+_What you receive:_
+
+```json
+    {
+      plant_id: 2,
+      plant_name: "Maranta leuconeura",
+      plant_species: "Lemon Lime",
+      h2oFrequency: 0,
+      image_url:
+        "https://hometoheather.com/wp-content/uploads/2021/06/lemon-lime-prayer-plant-sm.jpg",
+      user_id: 1,
+    },
+   
+```
+
+### [POST] /api/plants
+
+**_RESTRICTED ENDPOINT_**
+
+- Add a plant (authenticated user)
+  - _requires valid token in authorization header to send_
+  - _requires valid user_id in user_id header to access_
+  - _required information:_
+    - _plant_name (string)_
+    - _plant_species (string)_
+    - _h2oFrequency (integer)_
+  - _optional information:_
+    - _image_url (string)_  
+
+_What you send:_
+
+```json
+{
+  "plant_name": "Garden Rose",
+  "plant_species": "Ausmas",
+  "h2oFrequency": 14,
+  "image_url": "https://randomimagelink.com"
+}
+```
+
+_What you receive:_
+
+```json
+{
+   "plant_id": 3,
+   "plant_name": "Garden Rose",
+   "plant_species": "Ausmas",
+   "h2oFrequency": 14,
+   "image_url": "https://randomimagelink.com",
+   "user_id": 1,
+    },
 ```
 
 ## Scripts
