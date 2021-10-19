@@ -38,6 +38,7 @@ authRouter.post(
       const token = buildToken(res.user);
       res.status(200).json({
         message: `welcome, ${res.user.username}`,
+        user_id: res.user.user_id,
         token,
       });
     } else {

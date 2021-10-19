@@ -1,38 +1,32 @@
 const db = require("../data/db-config");
 
-function getPlants() {
-  return db("plants");
+function getPlants(user_id) {
+  return db("plants").where("user_id", user_id);
 }
 
 function findBy(filter) {
   return db("users").where(filter);
 }
 
-function findById(id) {
-  return db("plants").where("plant_id", id).first();
+function findById(plant_id) {
+  return db("plants").where("plant_id", plant_id).first();
 }
 
-async function insertUser(user) {
-  // WITH POSTGRES WE CAN PASS A "RETURNING ARRAY" AS 2ND ARGUMENT TO knex.insert/update
-  // AND OBTAIN WHATEVER COLUMNS WE NEED FROM THE NEWLY CREATED/UPDATED RECORD
-  // UNLIKE SQLITE WHICH FORCES US DO DO A 2ND DB CALL
-  const [newUserObject] = await db("users").insert(user, [
+async function insertPlant(plant) {
+  const [newPlantObject] = await db("plants").insert(plant, [
+    "plant_id",
+    "plant_name",
+    "plant_species",
+    "h2oFrequency",
+    "image_url",
     "user_id",
-    "username",
-    "password",
-    "phoneNumber",
   ]);
-  return newUserObject;
+  return newPlantObject;
 }
-
-// async function add(user) {
-//     const [id] = await db("users").insert(user);
-//     return findById(id);
-//   }
 
 module.exports = {
   getPlants,
   findBy,
   findById,
-  insertUser,
+  insertPlant,
 };
