@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const usersRouter = require("./users/users-router");
 const authRouter = require("./auth/auth-router");
+const plantsRouter = require("./plants/plants-router");
 const { restricted } = require("./auth/auth-middleware");
 
 const server = express();
@@ -12,6 +13,7 @@ server.use(cors());
 
 server.use("/api/users", restricted, usersRouter);
 server.use("/api/auth", authRouter);
+server.use("/api/plants", restricted, plantsRouter);
 
 // eslint-disable-next-line
 server.use((err, req, res, next) => {
