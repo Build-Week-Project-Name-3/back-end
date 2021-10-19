@@ -167,11 +167,11 @@ _What you receive:_
   - _requires valid token in authorization header to send_
   - _requires valid user_id in user_id header to access_
   - _required information:_
-    - _plant_name (string)_
-    - _plant_species (string)_
-    - _h2oFrequency (integer)_
+   - _plant_name (string)_
+   - _plant_species (string)_
+   - _h2oFrequency (integer)_
   - _optional information:_
-    - _image_url (string)_  
+   - _image_url (string)_  
 
 _What you send:_
 
