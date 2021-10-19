@@ -184,7 +184,7 @@ _What you receive:_
    "h2oFrequency": 14,
    "image_url": "https://randomimagelink.com",
    "user_id": 1,
-    },
+    }
 ```
 
 ## Scripts
