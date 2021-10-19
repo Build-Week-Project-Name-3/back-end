@@ -116,22 +116,21 @@ _What you receive:_
 ```json
 [
     {
-      plant_id: 1,
-      plant_name: "Aglaonema",
-      plant_species: "Chinese Evergreen",
-      h2oFrequency: 21,
-      image_url:
-        "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
-      user_id: 1,
+      "plant_id": 1,
+      "plant_name": "Aglaonema",
+      "plant_species": "Chinese Evergreen",
+      "h2oFrequency": 21,
+      "image_url": "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
+      "user_id": 1,
     },
     {
-      plant_id: 2,
-      plant_name: "Maranta leuconeura",
-      plant_species: "Lemon Lime",
-      h2oFrequency: 7,
-      image_url:
+      "plant_id": 2,
+      "plant_name": "Maranta leuconeura",
+      "plant_species": "Lemon Lime",
+      "h2oFrequency": 7,
+      "image_url":
         "https://hometoheather.com/wp-content/uploads/2021/06/lemon-lime-prayer-plant-sm.jpg",
-      user_id: 1,
+      "user_id": 1,
     },
   ]
 ```
@@ -148,14 +147,14 @@ _What you receive:_
 
 ```json
     {
-      plant_id: 2,
-      plant_name: "Maranta leuconeura",
-      plant_species: "Lemon Lime",
-      h2oFrequency: 0,
-      image_url:
+      "plant_id": 2,
+      "plant_name": "Maranta leuconeura",
+      "plant_species": "Lemon Lime",
+      "h2oFrequency": 7,
+      "image_url":
         "https://hometoheather.com/wp-content/uploads/2021/06/lemon-lime-prayer-plant-sm.jpg",
-      user_id: 1,
-    },
+      "user_id": 1,
+    }
    
 ```
 
@@ -167,11 +166,11 @@ _What you receive:_
   - _requires valid token in authorization header to send_
   - _requires valid user_id in user_id header to access_
   - _required information:_
-   - _plant_name (string)_
-   - _plant_species (string)_
-   - _h2oFrequency (integer)_
+    - _plant_name (string)_
+    - _plant_species (string)_
+    - _h2oFrequency (integer)_
   - _optional information:_
-   - _image_url (string)_  
+    - _image_url (string)_  
 
 _What you send:_
 
