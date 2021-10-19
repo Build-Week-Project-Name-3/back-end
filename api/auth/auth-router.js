@@ -21,7 +21,11 @@ authRouter.post(
       const hash = bcrypt.hashSync(password, rounds);
       const user = { username, password: hash, phoneNumber };
       const newUser = await Users.insertUser(user);
-      res.status(201).json(newUser);
+      res
+        .status(201)
+        .json({
+          message: `successfully created an account with the username ${newUser.username}`,
+        });
     } catch (err) {
       next(err);
     }

@@ -7,7 +7,7 @@ usersRouter.get("/", async (req, res) => {
 });
 
 usersRouter.get("/:id", async (req, res) => {
-  res.status(200).json(await Users.insertUser(req.body));
+  res.status(200).json(await Users.findById(req.params.id));
 });
 
 module.exports = usersRouter;

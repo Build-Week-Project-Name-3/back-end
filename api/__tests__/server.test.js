@@ -35,14 +35,10 @@ describe("[POST] /api/auth/register", () => {
   it("responds with 201 CREATED", async () => {
     expect(res.status).toBe(201);
   });
-  it("responds with the correct data structure", async () => {
-    const expected = {
-      user_id: 1,
-      username: "jimHalpert",
-      phoneNumber: "+8086862124",
-    };
-    expect(res.body).toMatchObject(expected);
-    expect(res.body.password).not.toBe("ucantcme");
+  it("responds with the correct message", async () => {
+    expect(res.body.message).toBe(
+      "successfully created an account with the username jimHalpert"
+    );
   });
 });
 
@@ -122,7 +118,7 @@ describe("[POST] /api/auth/login [MIDDLEWARE]", () => {
   });
 });
 
-describe("[GET] /api/users", () => {
+describe("[GET] /api/users/:id", () => {
   let res;
   beforeEach(async () => {
     await request(server).post("/api/auth/register").send({
@@ -237,17 +233,18 @@ describe("[GET] /api/plants/:id", () => {
   it("responds with correct message structure ", async () => {
     expect(res.body.token).toBeDefined();
     const expected = {
-      plant_id: 1,
-      plant_name: "Maranta leuconeura",
-      plant_species: "Lemon Lime",
-      h2oFrequency: "once a week",
+      plant_id: 0,
+      plant_name: "Aglaonema",
+      plant_species: "Chinese Evergreen",
+      h2oFrequency: 21,
       image_url:
-        "https://hometoheather.com/wp-content/uploads/2021/06/lemon-lime-prayer-plant-sm.jpg",
+        "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
       user_id: 0,
     };
     const plants = await request(server)
-      .get(`/api/plants/${1}`)
-      .set("Authorization", res.body.token);
+      .get(`/api/plants/${0}`)
+      .set("Authorization", res.body.token)
+      .set("user_id", res.body.user_id);
     expect(plants.body).toMatchObject(expected);
   });
 });
@@ -273,7 +270,7 @@ describe("[POST] /api/plants", () => {
         plant_id: 2,
         plant_name: "Aglaonema",
         plant_species: "Philippine Evergreen",
-        h2oFrequency: "once every few weeks",
+        h2oFrequency: 14,
         image_url:
           "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
       });
@@ -283,14 +280,14 @@ describe("[POST] /api/plants", () => {
   });
   it("creates a new plant in the db", async () => {
     const plants = await db("plants");
-    expect(plants.length).toBe(3);
+    expect(plants.length).toBe(2);
   });
   it("responds with correct data structure ", () => {
     expect(res2.body).toMatchObject({
       plant_id: 2,
       plant_name: "Aglaonema",
       plant_species: "Philippine Evergreen",
-      h2oFrequency: "once every few weeks",
+      h2oFrequency: 14,
       image_url:
         "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
       user_id: 1,
