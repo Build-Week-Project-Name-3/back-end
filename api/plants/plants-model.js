@@ -38,10 +38,15 @@ async function updatePlant(plant, plant_id) {
   return newPlantObject;
 }
 
+function remove(id) {
+  return db("plants").where("plant_id", id).del();
+}
+
 module.exports = {
   getPlants,
   findBy,
   findById,
   insertPlant,
   updatePlant,
+  remove,
 };

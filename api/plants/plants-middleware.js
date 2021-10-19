@@ -1,4 +1,4 @@
-// const Plants = require("./plants-model");
+const Plants = require("./plants-model");
 
 const validatePlant = async (req, res, next) => {
   const { plant_name, plant_species, h2oFrequency } = req.body;
@@ -14,6 +14,20 @@ const validatePlant = async (req, res, next) => {
   next();
 };
 
+const validatePlantId = async (req, res, next) => {
+  try {
+    const plant = await Plants.findById(req.params.id);
+    if (plant) {
+      req.plant = plant;
+      next();
+    } else {
+      next({ status: 404, message: "plant not found" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const checkUserId = async (req, res, next) => {
   const { user_id } = req.headers;
   if (!user_id) {
@@ -25,4 +39,5 @@ const checkUserId = async (req, res, next) => {
 module.exports = {
   validatePlant,
   checkUserId,
+  validatePlantId,
 };
