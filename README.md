@@ -80,7 +80,7 @@ _What you receive:_
 
 ## <p align="center">USERS</p>
 
-### [GET] /api/users/:id
+### [GET] /api/users/:user_id
 
 **_RESTRICTED ENDPOINT_**
 
@@ -126,7 +126,7 @@ _What you receive:_
   ]
 ```
 
-### [GET] /api/plants/:id
+### [GET] /api/plants/:plant_id
 
 **_RESTRICTED ENDPOINT_**
 
@@ -184,9 +184,44 @@ _What you receive:_
    "h2oFrequency": 14,
    "image_url": "https://randomimagelink.com",
    "user_id": 1,
-    }
+ }
+```
+### [PUT] /api/plants/:plant_id
+
+**_RESTRICTED ENDPOINT_**
+
+- Update an existing plant (authenticated user)
+  - _requires valid token in authorization header to send_
+  - _requires valid user_id in user_id header to send_
+  - _required information:_
+    - _plant_name (string)_
+    - _plant_species (string)_
+    - _h2oFrequency (integer)_
+    - _image_url (string)_  
+
+_What you send:_
+
+```json
+{
+  "plant_name": "Garden Rose",
+  "plant_species": "Ausmas",
+  "h2oFrequency": 14,
+  "image_url": "https://randomimagelink.com"
+}
 ```
 
+_What you receive:_
+
+```json
+{
+  "plant_id": 3,
+  "plant_name": "Garden Rose",
+  "plant_species": "Ausmas",
+  "h2oFrequency": 14,
+  "image_url": "https://randomimagelink.com",
+  "user_id": 1
+}
+```
 ## Scripts
 
 - **start**: Runs the app in production.
