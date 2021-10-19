@@ -169,3 +169,58 @@ describe("[GET] /api/users", () => {
     expect(users.body).toMatchObject(expected);
   });
 });
+
+describe("[GET] /api/plants", () => {
+  let res;
+  beforeEach(async () => {
+    await request(server).post("/api/auth/register").send({
+      username: "johnCena",
+      password: "ucantcme",
+      phoneNumber: "+18985339048",
+    });
+    res = await request(server).post("/api/auth/login").send({
+      username: "johnCena",
+      password: "ucantcme",
+      phoneNumber: "+18985339048",
+    });
+  });
+  it("responds with 200 OK if correct token sent in header", async () => {
+    expect(res.body.token).toBeDefined();
+    // const jokes = await request(server);
+    const users = await request(server)
+      .get("/api/plants")
+      .set("Authorization", res.body.token);
+    expect(users.status).toBe(200);
+  });
+  it("rejects user if no token is sent in header", async () => {
+    const res = await request(server).get("/api/plants");
+    expect(res.body.message).toBe("token required");
+  });
+  it("responds with correct message structure ", async () => {
+    expect(res.body.token).toBeDefined();
+    const expected = [
+      {
+        plant_id: 0,
+        plant_name: "Aglaonema",
+        plant_species: "Chinese Evergreen",
+        h2oFrequency: "once every few weeks",
+        image_url:
+          "https://www.ourhouseplants.com/imgs-content/Aglaonema-Chinese-Evergreen-Maria.jpg",
+        user_id: 0,
+      },
+      {
+        plant_id: 1,
+        plant_name: "Maranta leuconeura",
+        plant_species: "Lemon Lime",
+        h2oFrequency: "once a week",
+        image_url:
+          "https://hometoheather.com/wp-content/uploads/2021/06/lemon-lime-prayer-plant-sm.jpg",
+        user_id: 0,
+      },
+    ];
+    const plants = await request(server)
+      .get("/api/plants")
+      .set("Authorization", res.body.token);
+    expect(plants.body).toMatchObject(expected);
+  });
+});
