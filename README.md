@@ -52,6 +52,34 @@ _What you receive:_
 }
 ```
 
+### [POST] /api/auth/login
+
+- Login
+  - _username and password required_
+  - _returns the following:_
+    - _message: { "welcome, jimHalpert" }_
+    - _user_id: 1_
+    - _token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzIzMzE4NzksImV4cCI6MTYzMjQxODI3OX0.Ajk-7XyY83eXwbo2mp5Q2_qEUdsfr1XnWy-wGtGX2XE"_
+
+_What you send:_
+
+```json
+{
+  "username": "pambeesly",
+  "password": "anotherrandompassword"
+}
+```
+
+_What you receive:_
+
+```json
+{
+  "message": "Welcome back pambeesly",
+  "user_id": 1,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzIzMzE4NzksImV4cCI6MTYzMjQxODI3OX0.Ajk-7XyY83eXwbo2mp5Q2_qEUdsfr1XnWy-wGtGX2XE"
+}
+```
+
 ## Scripts
 
 - **start**: Runs the app in production.
