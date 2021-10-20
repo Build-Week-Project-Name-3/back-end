@@ -11,6 +11,7 @@ const validatePlant = async (req, res, next) => {
   ) {
     next({ status: 400, message: "all fields are required" });
   }
+  req.plant = req.body;
   next();
 };
 
@@ -18,7 +19,6 @@ const validatePlantId = async (req, res, next) => {
   try {
     const plant = await Plants.findById(req.params.id);
     if (plant) {
-      req.plant = plant;
       next();
     } else {
       next({ status: 404, message: "plant not found" });

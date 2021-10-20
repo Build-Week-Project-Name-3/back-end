@@ -25,7 +25,7 @@ plantsRouter.post("/", validatePlant, async (req, res, next) => {
   try {
     const { user_id } = req.headers;
     const newPlant = await Plants.insertPlant({
-      ...req.body,
+      ...req.plant,
       user_id: user_id,
     });
     res.status(201).json(newPlant);
@@ -40,7 +40,7 @@ plantsRouter.put(
   validatePlant,
   async (req, res, next) => {
     try {
-      const updatedPlant = await Plants.updatePlant(req.body, req.params.id);
+      const updatedPlant = await Plants.updatePlant(req.plant, req.params.id);
       res.status(200).json(updatedPlant);
     } catch (err) {
       next(err);
