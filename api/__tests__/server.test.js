@@ -213,6 +213,44 @@ describe("[PUT] /api/users/:id", () => {
   });
 });
 
+describe("[PUT] /api/users/:id [MIDDLEWARE]", () => {
+  let res1;
+  let res2;
+  beforeEach(async () => {
+    await request(server).post("/api/auth/register").send({
+      username: "johnCena",
+      password: "password",
+      phoneNumber: "+1048",
+    });
+    res1 = await request(server).post("/api/auth/login").send({
+      username: "johnCena",
+      password: "password",
+    });
+    res2 = await request(server)
+      .put(`/api/users/${1}`)
+      .set("Authorization", res1.body.token)
+      .set("user_id", res1.body.user_id)
+      .send({
+        username: "johnCena",
+      });
+  });
+  it("responds with 400 ERROR", async () => {
+    expect(res2.status).toBe(400);
+  });
+  it("fails to update the user in the db", async () => {
+    const user = await db("users").where("user_id", 1).first();
+    const expected = {
+      username: "johnCena",
+      phoneNumber: "+1048",
+      user_id: 1,
+    };
+    expect(user).toMatchObject(expected);
+  });
+  it("responds with correct data structure ", () => {
+    expect(res2.body.message).toBe("password and phone number required");
+  });
+});
+
 describe("[GET] /api/plants", () => {
   let res;
   beforeEach(async () => {
