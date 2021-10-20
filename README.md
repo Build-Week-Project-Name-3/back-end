@@ -266,7 +266,10 @@ _What you receive:_
 _Nothing gets returned on successful deletion_
 
 ## Scripts
-
+To download all needed dependencies run:
+```git
+  npm install
+```
 - **start**: Runs the app in production.
 - **server**: Runs the app in development.
 - **migrate**: Migrates the local development database to the latest.
