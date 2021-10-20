@@ -104,7 +104,7 @@ _What you receive:_
 
 **_RESTRICTED ENDPOINT_**
 
-- Update an existing plant (authenticated user)
+- Update an existing user (authenticated user)
   - _requires valid token in authorization header to send_
   - _requires valid user_id in user_id header to send_
   - _required information:_
