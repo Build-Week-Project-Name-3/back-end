@@ -86,7 +86,6 @@ _What you receive:_
 
 - Get profile information for authenticated user
   - _requires valid token in authorization header to access_
-  - _requires valid user_id in user_id header to access_
 
 _What you receive:_
 
@@ -98,6 +97,37 @@ _What you receive:_
     "phoneNumber": "+1234567897",
     "created_at": "2021-10-19T17:44:05.266Z",
     "updated_at": "2021-10-19T17:44:05.266Z"
+}
+```
+
+### [PUT] /api/users/:user_id
+
+**_RESTRICTED ENDPOINT_**
+
+- Update an existing plant (authenticated user)
+  - _requires valid token in authorization header to send_
+  - _requires valid user_id in user_id header to send_
+  - _required information:_
+    - _password_ (string)_
+    - phoneNumber (string)_
+
+_What you send:_
+
+```json
+{
+  "username": "michaelScott", (optional)
+  "password": "anotherrandompassword",
+  "phoneNumber":"+14355903456"
+}
+```
+
+_What you receive:_
+
+```json
+{
+  "username": "michaelScott",
+  "password": *HASHED PASSWORD*,
+  "phoneNumber":"+14355903456"
 }
 ```
 
