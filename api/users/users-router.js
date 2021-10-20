@@ -11,4 +11,13 @@ usersRouter.get("/:id", validateUserId, async (req, res) => {
   res.status(200).json(await Users.findById(req.params.id));
 });
 
+usersRouter.put("/:id", validateUserId, async (req, res, next) => {
+  try {
+    const updatedUser = await Users.updateUser(req.user, req.params.id);
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    next(err);
+  }
+});
+
 module.exports = usersRouter;

@@ -22,9 +22,17 @@ async function insertUser(user) {
   return newUserObject;
 }
 
+async function updateUser(user, user_id) {
+  const [newUserObject] = await db("users")
+    .update(user, ["user_id", "username", "password", "phoneNumber"])
+    .where("user_id", user_id);
+  return newUserObject;
+}
+
 module.exports = {
   getUsers,
   findBy,
   findById,
   insertUser,
+  updateUser,
 };
