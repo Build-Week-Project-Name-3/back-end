@@ -74,6 +74,14 @@ const validateUserId = async (req, res, next) => {
   }
 };
 
+const validateUserUpdate = async (req, res, next) => {
+  const { password, phoneNumber } = req.body;
+  if (!phoneNumber || !phoneNumber.trim() || !password || !password.trim()) {
+    next({ status: 400, message: "password and phone number required" });
+  }
+  next();
+};
+
 module.exports = {
   restricted,
   checkUsernameFree,
@@ -81,4 +89,5 @@ module.exports = {
   checkPhoneNumberFree,
   validateUser,
   validateUserId,
+  validateUserUpdate,
 };
