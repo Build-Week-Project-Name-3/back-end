@@ -166,6 +166,53 @@ describe("[GET] /api/users/:id", () => {
   });
 });
 
+describe("[PUT] /api/users/:id", () => {
+  let res1;
+  let res2;
+  beforeEach(async () => {
+    await request(server).post("/api/auth/register").send({
+      username: "johnCena",
+      password: "password",
+      phoneNumber: "+1048",
+    });
+    res1 = await request(server).post("/api/auth/login").send({
+      username: "johnCena",
+      password: "password",
+    });
+    res2 = await request(server)
+      .put(`/api/users/${1}`)
+      .set("Authorization", res1.body.token)
+      .set("user_id", res1.body.user_id)
+      .send({
+        username: "johnCena",
+        password: "ucantcme",
+        phoneNumber: "+18985339048",
+      });
+  });
+  it("responds with 200 OK", async () => {
+    expect(res2.status).toBe(200);
+  });
+  it("updates the user in the db", async () => {
+    const user = await db("users").where("user_id", 1).first();
+    const expected = {
+      password: "ucantcme",
+      phoneNumber: "+18985339048",
+      user_id: 1,
+      username: "johnCena",
+    };
+    expect(user).toMatchObject(expected);
+  });
+  it("responds with correct data structure ", () => {
+    const expected = {
+      password: "ucantcme",
+      phoneNumber: "+18985339048",
+      user_id: 1,
+      username: "johnCena",
+    };
+    expect(res2.body).toMatchObject(expected);
+  });
+});
+
 describe("[GET] /api/plants", () => {
   let res;
   beforeEach(async () => {
@@ -396,6 +443,7 @@ describe("[PUT] /api/plants/:id", () => {
     expect(res2.status).toBe(200);
   });
   it("updates the plant in the db", async () => {
+    const plants = await db("plants").where("plant_id", 1).first();
     const expected = {
       plant_id: 1,
       plant_name: "Aglaonema",
@@ -404,7 +452,7 @@ describe("[PUT] /api/plants/:id", () => {
       image_url: "https://randomlink.com",
       user_id: 1,
     };
-    expect(res2.body).toEqual(expected);
+    expect(plants).toEqual(expected);
   });
   it("responds with correct data structure ", () => {
     expect(res2.body).toMatchObject({

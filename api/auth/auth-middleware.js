@@ -64,7 +64,7 @@ const validateUserId = async (req, res, next) => {
   try {
     const user = await Users.findById(req.params.id);
     if (user) {
-      req.user = user;
+      res.user = req.body;
       next();
     } else {
       next({ status: 404, message: "user not found" });

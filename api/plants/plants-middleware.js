@@ -1,4 +1,5 @@
 const Plants = require("./plants-model");
+const Users = require("../auth/auth-model");
 
 const validatePlant = async (req, res, next) => {
   const { plant_name, plant_species, h2oFrequency } = req.body;
@@ -30,7 +31,8 @@ const validatePlantId = async (req, res, next) => {
 
 const checkUserId = async (req, res, next) => {
   const { user_id } = req.headers;
-  if (!user_id) {
+  const user = await Users.findById(user_id);
+  if (!user) {
     next({ status: 400, message: "user_id property not found in header" });
   }
   next();
