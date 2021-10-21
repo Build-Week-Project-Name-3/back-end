@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../secrets");
 const Users = require("./auth-model");
+const bcrypt = require("bcryptjs");
 
 const restricted = (req, res, next) => {
   const token = req.headers.authorization;
@@ -78,8 +79,14 @@ const validateUserUpdate = async (req, res, next) => {
   const { password, phoneNumber } = req.body;
   if (!phoneNumber || !phoneNumber.trim() || !password || !password.trim()) {
     next({ status: 400, message: "password and phone number required" });
+  } else {
+    const { username, password, phoneNumber } = req.body;
+    const rounds = process.env.BCRYPT_ROUNDS || 8;
+    const hash = bcrypt.hashSync(password, rounds);
+    res.oldPassword = password;
+    res.newUser = { username, password: hash, phoneNumber };
+    next();
   }
-  next();
 };
 
 module.exports = {

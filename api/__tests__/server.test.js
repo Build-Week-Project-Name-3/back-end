@@ -192,19 +192,16 @@ describe("[PUT] /api/users/:id", () => {
   it("responds with 200 OK", async () => {
     expect(res2.status).toBe(200);
   });
-  it("updates the user in the db", async () => {
-    const user = await db("users").where("user_id", 1).first();
-    const expected = {
-      password: "ucantcme",
-      phoneNumber: "+18985339048",
-      user_id: 1,
+  it("updates the password in the db allowing new login", async () => {
+    const res3 = await request(server).post("/api/auth/login").send({
       username: "johnCena",
-    };
-    expect(user).toMatchObject(expected);
+      password: "ucantcme",
+    });
+    expect(res3.body.message).toBe("welcome, johnCena");
   });
   it("responds with correct data structure ", () => {
     const expected = {
-      password: "ucantcme",
+      message: "successfully updated password",
       phoneNumber: "+18985339048",
       user_id: 1,
       username: "johnCena",

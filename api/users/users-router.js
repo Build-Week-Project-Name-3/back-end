@@ -1,4 +1,5 @@
 const usersRouter = require("express").Router();
+
 const {
   validateUserId,
   validateUserUpdate,
@@ -22,8 +23,10 @@ usersRouter.put(
   checkUserId,
   async (req, res, next) => {
     try {
-      const updatedUser = await Users.updateUser(res.user, req.params.id);
-      res.status(200).json(updatedUser);
+      const updatedUser = await Users.updateUser(res.newUser, req.params.id);
+      res
+        .status(200)
+        .json({ ...updatedUser, message: `successfully updated password` });
     } catch (err) {
       next(err);
       41;
