@@ -294,10 +294,10 @@ _Default, won't work_
 _Updated with your Heroku app's name_
 
 ```
-    "migrateh": "heroku run knex migrate:latest -a HEROKU APP NAME",
-    "rollbackh": "heroku run knex migrate:rollback -a HEROKU APP NAME",
-    "databaseh": "heroku pg:psql -a HEROKU APP NAME",
-    "seedh": "heroku run knex seed:run -a HEROKU APP NAME",
+    "migrateh": "heroku run knex migrate:latest -a HEROKU-APP-NAME",
+    "rollbackh": "heroku run knex migrate:rollback -a HEROKU-APP-NAME",
+    "databaseh": "heroku pg:psql -a HEROKU-APP-NAME",
+    "seedh": "heroku run knex seed:run -a HEROKU-APP-NAME",
 ```
 
 ## Scripts
