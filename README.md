@@ -291,7 +291,7 @@ _Default, won't work_
     "seedh": "heroku run knex seed:run -a build-week-water-my-plants-1",
 ```
 
-_Updated with your Heroku app_
+_Updated with your Heroku app's name_
 
 ```
     "migrateh": "heroku run knex migrate:latest -a HEROKU APP NAME",
