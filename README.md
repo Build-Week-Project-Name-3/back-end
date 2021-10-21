@@ -125,9 +125,11 @@ _What you receive:_
 
 ```json
 {
-  "username": "michaelScott",
-  "password": *HASHED PASSWORD*,
-  "phoneNumber":"+14355903456"
+    "user_id": 1,
+    "username": "michaelScott",
+    "password": "$2a$08$xOcFL3YRWjdLQz4n545nzO0eZASuBNhYT2QYUctlv5Ks4YBqa3sdm",
+    "phoneNumber": "+14355903456",
+    "message": "successfully updated password"
 }
 ```
 
