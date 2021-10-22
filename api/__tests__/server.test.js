@@ -201,7 +201,7 @@ describe("[PUT] /api/users/:id", () => {
   });
   it("responds with correct data structure ", () => {
     const expected = {
-      message: "successfully updated password",
+      message: "successfully updated account information",
       phoneNumber: "+18985339048",
       user_id: 1,
       username: "johnCena",

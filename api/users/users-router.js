@@ -24,12 +24,12 @@ usersRouter.put(
   async (req, res, next) => {
     try {
       const updatedUser = await Users.updateUser(res.newUser, req.params.id);
-      res
-        .status(200)
-        .json({ ...updatedUser, message: `successfully updated password` });
+      res.status(200).json({
+        ...updatedUser,
+        message: `successfully updated account information`,
+      });
     } catch (err) {
       next(err);
-      41;
     }
   }
 );
