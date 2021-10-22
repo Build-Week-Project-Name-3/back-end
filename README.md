@@ -267,11 +267,40 @@ _What you receive:_
 
 _Nothing gets returned on successful deletion_
 
-## Scripts
+## Getting Started
 To download all needed dependencies run:
 ```git
   npm install
 ```
+We are using PostgreSQL to store our data here so we will need to set up a **.env file** and add other needed environment variables like so:
+```
+PORT=5000
+JWT_SECRET='KEEP IT SECRET'
+NODE_ENV=development
+DEV_DATABASE_URL='postgresql://postgres:YOURPGSQLPASSWORD@localhost:PGSQLPORT/DATABASENAME'
+TESTING_DATABASE_URL='postgresql://postgres:YOURPGSQLPASSWORD@localhost:PGSQLPORT/DATABASENAME_TEST'
+```
+If you plan on using Heroku to deploy your back-end, go to **package.json** and change four scripts to connect your Heroku app:
+
+_Default, won't work_
+
+```
+    "migrateh": "heroku run knex migrate:latest -a build-week-water-my-plants-1",
+    "rollbackh": "heroku run knex migrate:rollback -a build-week-water-my-plants-1",
+    "databaseh": "heroku pg:psql -a build-week-water-my-plants-1",
+    "seedh": "heroku run knex seed:run -a build-week-water-my-plants-1",
+```
+
+_Updated with your Heroku app's name_
+
+```
+    "migrateh": "heroku run knex migrate:latest -a HEROKU-APP-NAME",
+    "rollbackh": "heroku run knex migrate:rollback -a HEROKU-APP-NAME",
+    "databaseh": "heroku pg:psql -a HEROKU-APP-NAME",
+    "seedh": "heroku run knex seed:run -a HEROKU-APP-NAME",
+```
+
+## Scripts
 - **start**: Runs the app in production.
 - **server**: Runs the app in development.
 - **migrate**: Migrates the local development database to the latest.
